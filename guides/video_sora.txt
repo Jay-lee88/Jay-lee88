@@ -1,0 +1,4 @@
+[Sora AI 비디오 프롬프트 가이드]
+- 동작과 장면 전환을 자세히 설명하세요
+- 시간의 흐름을 포함하세요
+- 예시: "A camera slowly pans across a bustling city street as day turns to night"
