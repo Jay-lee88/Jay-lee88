@@ -215,4 +215,258 @@
       margin-right: auto;
       white-space: nowrap;
       overflow: hidden;
-      text-overflow: ellip
+      text-overflow: ellipsis;
+      display: block;
+    }
+    .select-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin: 12px 0 0 0;
+    }
+    .select-row select {
+      flex: 1 1 0;
+      min-width: 120px;
+      max-width: 220px;
+      background: #181A20;
+      color: #F5F6FA;
+      border: 1.5px solid #2C2F3A;
+      border-radius: 9px;
+      font-size: 1.01rem;
+      padding: 10px 12px;
+      transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .select-row select:focus {
+      border: 1.5px solid #4F8CFF;
+      background: #23262F;
+      box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    }
+    @media (max-width: 600px) {
+      .select-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+    .style-sample-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 10px 0 2px 0;
+    }
+    .style-sample-btn {
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 100%);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 6px 16px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 1px 6px 0 rgba(79,140,255,0.13);
+      transition: background 0.18s, transform 0.13s, box-shadow 0.18s;
+      outline: none;
+      user-select: none;
+    }
+    .style-sample-btn:hover {
+      background: linear-gradient(90deg, #A259FF 0%, #4FFFCB 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 2px 12px 0 rgba(79,140,255,0.18);
+    }
+    .settings-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: #4F8CFF;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 2;
+      transition: color 0.18s;
+    }
+    .settings-btn:hover { color: #A259FF; }
+    .settings-panel {
+      display: none;
+      position: absolute;
+      top: 48px;
+      right: 18px;
+      background: #181A20;
+      border: 1.5px solid #2C2F3A;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px 0 rgba(79,140,255,0.13);
+      padding: 18px 18px 10px 18px;
+      min-width: 220px;
+      z-index: 10;
+    }
+    .settings-row { margin-bottom: 12px; }
+    .settings-row label { color: #B0B3C7; font-size: 0.97rem; margin-bottom: 4px; display: block; }
+    .settings-row input, .settings-row select {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1.2px solid #2C2F3A;
+      background: #23262F;
+      color: #F5F6FA;
+      font-size: 0.98rem;
+      margin-top: 2px;
+    }
+    .settings-row input:focus, .settings-row select:focus {
+      border: 1.2px solid #4F8CFF;
+      background: #181A20;
+    }
+    .settings-panel.active { display: block; }
+    .chat-area {
+      min-height: 80px;
+      max-height: 260px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chat-bubble {
+      align-self: flex-end;
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 100%);
+      color: #fff;
+      border-radius: 16px 16px 4px 16px;
+      padding: 13px 18px;
+      font-size: 1.08rem;
+      max-width: 90%;
+      box-shadow: 0 2px 12px 0 rgba(79,140,255,0.13);
+      word-break: break-word;
+      animation: chatIn 0.3s;
+    }
+    @keyframes chatIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: none; } }
+    .chat-form {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .chat-input {
+      flex: 1;
+      border-radius: 16px;
+      border: 1.5px solid #2C2F3A;
+      background: #181A20;
+      color: #F5F6FA;
+      font-size: 1.08rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border 0.18s, background 0.18s;
+      min-height: 44px;
+      max-height: 80px;
+      width: calc(100% - 44px);
+    }
+    .chat-input:focus {
+      border: 1.5px solid #4F8CFF;
+      background: #23262F;
+    }
+    #convert.chat-send {
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 1px 6px 0 rgba(79,140,255,0.13);
+      transition: background 0.18s, transform 0.13s, box-shadow 0.18s;
+      flex: 0 0 auto;
+      padding: 0;
+    }
+    #convert.chat-send:hover {
+      background: linear-gradient(90deg, #A259FF 0%, #4FFFCB 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 2px 12px 0 rgba(79,140,255,0.18);
+    }
+    .chat-bubble.guide {
+      background: linear-gradient(90deg, #23262F 60%, #4F8CFF 100%);
+      color: #B0B3C7;
+      border-radius: 16px 16px 16px 4px;
+      align-self: flex-start;
+      font-size: 1.01rem;
+      position: relative;
+    }
+    .guide-label {
+      display: inline-block;
+      font-size: 0.92em;
+      color: #4F8CFF;
+      font-weight: 700;
+      margin-right: 7px;
+      letter-spacing: 0.5px;
+    }
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 100%);
+      color: #fff;
+      border-radius: 16px 16px 4px 16px;
+      font-size: 1.08rem;
+      max-width: 90%;
+      box-shadow: 0 2px 12px 0 rgba(79,140,255,0.13);
+      word-break: break-word;
+      animation: chatIn 0.3s;
+      margin-left: auto;
+      margin-right: 0;
+      position: relative;
+    }
+    .user-label {
+      display: inline-block;
+      font-size: 0.92em;
+      color: #4FFFCB;
+      font-weight: 700;
+      margin-right: 7px;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-title">프롬프트 변환기</div>
+  <div class="container">
+    <div class="platform-title-wrap">
+      <div id="platform-title" class="platform-title">미드저니(이미지 생성)</div>
+      <div class="platform-desc">한국어로 프롬프트를 입력하면 선택한 AI 모델에 맞는 영어 프롬프트로 변환해드립니다.</div>
+      <div class="style-sample-row" id="style-sample-row"></div>
+      <div class="select-row">
+        <select id="convert-type">
+          <option value="text2image">Text to Image</option>
+          <option value="text2video">Text to Video</option>
+          <option value="image2video">Image to Video</option>
+        </select>
+        <select id="platform"></select>
+      </div>
+      <button id="settings-btn" class="settings-btn" title="설정"><i class="fa-solid fa-gear"></i></button>
+      <div id="settings-panel" class="settings-panel">
+        <div class="settings-row">
+          <label for="engine">번역 엔진</label>
+          <select id="engine">
+            <option value="openai">ChatGPT (OpenAI)</option>
+            <option value="gemini">Gemini (Google)</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <label for="apikey">API 키 입력 (비공개)</label>
+          <input id="apikey" type="password" placeholder="API 키를 입력하세요" autocomplete="off" />
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="chat-area" id="chat-area"></div>
+    <form id="chat-form" class="chat-form" autocomplete="off">
+      <input id="prompt" class="chat-input" type="text" placeholder="한국어로 원하는 내용을 자연스럽게 적어주세요" autocomplete="off" />
+      <button id="convert" class="chat-send" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
