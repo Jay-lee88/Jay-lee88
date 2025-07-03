@@ -1,0 +1,4 @@
+[Midjourney 이미지 프롬프트 가이드]
+- 명확하고 구체적인 설명을 사용하세요
+- 원하는 스타일, 분위기, 색상을 포함하세요.
+- 예시: "A futuristic cityscape at sunset, vibrant colors, ultra-realistic, wide angle"
