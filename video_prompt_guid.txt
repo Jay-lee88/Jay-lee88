@@ -1,0 +1,83 @@
+sora (OpenAI)
+
+구조:
+Subject (주제), Action (행동), Setting (배경), Style (스타일), Camera (카메라 지시: 각도, 줌, 이동).
+
+팁:
+스토리텔링 중심, 명확하고 집중된 묘사 필요
+간단한 문장으로 효과 높이기 (short+focused prompts work best)
+
+예시:
+A curious fox (Subject) leaps over a mossy log (Action) in a misty forest at dawn (Setting), in soft cinematic style with slow dolly-in (Camera), warm pastel tones (Style).
+
+------------------------------------------------------------------------------------------------
+
+Google Flow (Veo 2 / Veo 3)
+
+Veo 2
+구조: Subject + Action + Composition (ex: timelapse, aerial shot 등)
+
+팁:
+정지 이미지 기반 → Motion / Action 묘사가 핵심
+자연어 + cinematic 키워드 조합이 효과적
+
+예시:
+A desert cowboy (Subject) walks steadily (Action) in a side-scrolling dolly shot (Composition), dust swirling around (Motion).
+
+Veo 3
+추가 요소:
+오디오–음악/대화/효과 포함 가능
+
+구조:
+Subject, Action, Composition, Style, Audio
+
+팁:
+촬영 프레임 구성 + 시네마틱 디테일 명시
+커뮤니티에서는 예시 프롬프트와 prompt viewing 활용 권장
+
+예시:
+A mini robot (Subject) dances joyfully on a rooftop at sunset (Setting), camera pans low angle (Composition), synth-pop soundtrack fades in (Audio), dreamy glow (Style).
+
+------------------------------------------------------------------------------------------------
+
+runway (Gen‑4 기준)
+구조: 
+Subject + Camera motion + Scene motion + Style
+
+팁:
+직관적 묘사, 1단계 후 iterative 방식으로 디테일 추가 
+프롬프트는 설명 중심이지 명령어 아닌 자연스러운 묘사형으로
+네거티브 지시 대신 “~없음” 대신 “~있음” 방식으로 표현
+
+예시:
+A child releases a paper airplane (Subject motion) over a sunlit park, camera tracks from behind (Camera motion), gentle wind rustles leaves (Scene motion), nostalgic pastel style (Style).
+
+------------------------------------------------------------------------------------------------
+
+kling
+구조:
+[Scene Description], [Style], [Motion], [Camera] (Optional)
+
+팁:
+2~4개 핵심 요소로 간결하게 유지
+생생한 언어 사용, 카메라 디테일 포함
+텍스트·이미지·모드 추가 가능, Professional 모드로 퀄리티 높이기
+
+예시:
+A graceful ballerina (Scene) performs under soft spotlight (Style), she pirouettes slowly across stage (Motion), camera pushes in close-up (Camera).
+
+------------------------------------------------------------------------------------------------
+
+✅ 요약 테이블
+
+sora - Subject / Action / Setting / Style / Camera
+
+Veo2 - Subject + Action + Composition (e.g. aerial, timelapse)
+
+Veo3 - Subject + Action + Composition + Style + Audio
+
+runway - Subject motion + Camera motion + Scene motion + Style
+
+kling - Scene Description + Style + Motion (+ Camera optional)
+
+
