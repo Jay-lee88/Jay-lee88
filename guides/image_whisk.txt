@@ -1,0 +1,4 @@
+[Google Whisk 이미지 프롬프트 가이드]
+- 자연스러운 문장으로 작성하세요
+- 세부적인 디테일을 포함하세요
+- 예시: "Create a photorealistic image of a modern kitchen with sunlight streaming through large windows"
