@@ -1,0 +1,4 @@
+[Runway 비디오 프롬프트 가이드]
+- 시각적 효과와 전환을 상세히 설명하세요
+- 원하는 스타일과 분위기를 명시하세요
+- 예시: "Cinematic scene of waves crashing on a beach at golden hour"
