@@ -1,0 +1,4 @@
+[Flux 이미지 프롬프트 가이드]
+- 간단하고 명확한 설명을 사용하세요
+- 주요 요소를 먼저 언급하세요
+- 예시: "Portrait of a young woman, digital art style, soft lighting, pastel colors"
