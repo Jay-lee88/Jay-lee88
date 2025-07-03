@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 프롬프트 변환기</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&family=Roboto:wght@400;700&display=swap');
+    body {
+      font-family: 'Pretendard', 'Roboto', 'Noto Sans KR', Arial, sans-serif;
+      background: linear-gradient(135deg, #181A20 0%, #23262F 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      color: #F5F6FA;
+    }
+    .navbar {
+      width: 100vw;
+      background: linear-gradient(90deg, #23262F 60%, #4F8CFF 100%);
+      box-shadow: 0 2px 12px 0 rgba(79,140,255,0.10);
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .navbar .logo {
+      color: #F5F6FA;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 48px auto 0 auto;
+      background: #23262F;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px 0 rgba(79,140,255,0.10);
+      padding: 40px 36px 32px 36px;
+      position: relative;
+      z-index: 1;
+      overflow: visible;
+    }
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      border-radius: 26px;
+      z-index: -1;
+      background: linear-gradient(270deg, #4F8CFF, #7F4FFF, #4FFFCB, #4F8CFF);
+      background-size: 600% 600%;
+      filter: blur(0.5px) brightness(1.5);
+      animation: neon-animate 6s linear infinite;
+      pointer-events: none;
+      padding: 0;
+      border: 2.5px solid transparent;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    @keyframes neon-animate {
+      0% { background-position: 0% 50%; }
+      25% { background-position: 50% 100%; }
+      50% { background-position: 100% 50%; }
+      75% { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+    h1 {
+      text-align: left;
+      color: #F5F6FA;
+      font-size: 2.1rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title {
+      font-size: 1.08rem;
+      color: #4F8CFF;
+      font-weight: 700;
+      margin-bottom: 8px;
+      margin-top: 18px;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: 600;
+      color: #B0B3C7;
+      display: block;
+      margin-bottom: 7px;
+      font-size: 1.01rem;
+    }
+    select, textarea, input {
+      width: 100%;
+      margin-top: 4px;
+      padding: 12px 14px;
+      border: 1.5px solid #2C2F3A;
+      border-radius: 9px;
+      font-size: 1.04rem;
+      background: #181A20;
+      color: #F5F6FA;
+      transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+      box-sizing: border-box;
+      outline: none;
+      font-family: inherit;
+    }
+    select:focus, textarea:focus, input:focus {
+      border: 1.5px solid #4F8CFF;
+      background: #23262F;
+      box-shadow: 0 2px 8px 0 rgba(79,140,255,0.10);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+      max-height: 200px;
+    }
+    #result {
+      background: #181A20;
+      padding: 17px 16px;
+      border-radius: 11px;
+      margin-top: 22px;
+      font-size: 1.09rem;
+      color: #F5F6FA;
+      min-height: 32px;
+      box-shadow: 0 1px 6px 0 rgba(79,140,255,0.08);
+      border: 1px solid #2C2F3A;
+      word-break: break-all;
+    }
+    #guide {
+      background: #23262F;
+      padding: 15px 16px;
+      border-radius: 11px;
+      margin-top: 16px;
+      font-size: 0.99rem;
+      color: #B0B3C7;
+      box-shadow: 0 1px 4px 0 rgba(79,140,255,0.04);
+      border: 1px solid #2C2F3A;
+      word-break: break-all;
+    }
+    small {
+      color: #7a8ca3;
+      font-size: 0.93rem;
+      margin-top: 2px;
+      display: block;
+    }
+    hr {
+      border: none;
+      border-top: 1.5px solid #2C2F3A;
+      margin: 28px 0 18px 0;
+    }
+    @media (max-width: 600px) {
+      .container {
+        max-width: 98vw;
+        margin: 16px 2vw 0 2vw;
+        padding: 18px 4vw 18px 4vw;
+      }
+      h1 {
+        font-size: 1.3rem;
+        margin-bottom: 14px;
+      }
+    }
+    .main-title {
+      width: 100vw;
+      text-align: center;
+      font-size: 2.6rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-top: 38px;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 50%, #4FFFCB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      filter: drop-shadow(0 2px 12px #4F8CFF44);
+      user-select: none;
+    }
+    .platform-title-wrap {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .platform-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #4F8CFF 0%, #A259FF 50%, #4FFFCB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      filter: drop-shadow(0 2px 8px #4F8CFF33);
+      margin-bottom: 6px;
+      user-select: none;
+    }
+    .platform-desc {
+      color: #B0B3C7;
+      font-size: 0.93rem;
+      margin-bottom: 2px;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellip
