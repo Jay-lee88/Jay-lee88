@@ -1,0 +1,4 @@
+[Google Flow Veo2 비디오 프롬프트 가이드]
+- 장면의 움직임을 구체적으로 설명하세요
+- 카메라 움직임을 포함하세요
+- 예시: "Aerial view of mountains, camera smoothly gliding over snow-capped peaks"
