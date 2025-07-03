@@ -47,6 +47,45 @@ const typeLabelMap = {
   image2video: '비디오 생성'
 };
 
+// 플랫폼별 프롬프트 포맷팅 함수
+function formatPrompt(text, platform, type) {
+  const basePrompt = text.trim();
+  const commonQuality = "high quality, detailed, professional";
+  
+  // 이미지 생성 플랫폼
+  if (type === 'text2image') {
+    switch(platform) {
+      case 'midjourney':
+        return `${basePrompt}, ${commonQuality}, 8k uhd, highly detailed, professional photography, photorealistic, --ar 16:9 --quality 2 --style raw`;
+      case 'whisk':
+        return `Highly detailed scene: ${basePrompt}. ${commonQuality}, photorealistic quality, masterful composition, perfect lighting, ultra-realistic details`;
+      case 'flux':
+        return `Create a photorealistic scene: ${basePrompt}. ${commonQuality}, cinematic lighting, ultra-detailed textures, professional grade`;
+      case 'dreamina':
+        return `${basePrompt}, ${commonQuality}, realistic lighting, perfect composition, professional photography`;
+      default:
+        return basePrompt;
+    }
+  }
+  // 비디오 생성 플랫폼
+  else if (type === 'text2video' || type === 'image2video') {
+    switch(platform) {
+      case 'sora':
+        return `Create a cinematic quality video: ${basePrompt}. ${commonQuality}, smooth camera movement, stable footage, cinematic lighting, 24fps, high resolution`;
+      case 'veo2':
+      case 'veo3':
+        return `Generate a professional video sequence: ${basePrompt}. ${commonQuality}, steady camera, natural motion, cinematic style, high definition`;
+      case 'runway':
+        return `Create a professional video: ${basePrompt}. ${commonQuality}, fluid motion, cinematic composition, perfect lighting, 4K quality`;
+      case 'kling':
+        return `Generate a high-quality video sequence: ${basePrompt}. ${commonQuality}, smooth transitions, professional camera work, cinematic grade`;
+      default:
+        return basePrompt;
+    }
+  }
+  return basePrompt;
+}
+
 function updatePlatformTitle() {
   const convertType = typeSelect.value;
   const platform = platformSelect.value;
@@ -107,23 +146,27 @@ if (apikeyInput) {
   });
 }
 
-// 더미 번역 함수 (실제 번역 없이 예시만 출력)
-function dummyTranslate(text) {
-  if (!text.trim()) return '';
-  return '[영어 번역 예시] ' + text;
-}
-
 // OpenAI(ChatGPT) 번역 함수
 async function openaiTranslate(text, apikey) {
+  const platform = platformSelect.value;
+  const type = typeSelect.value;
+  
+  const systemPrompt = `You are a professional prompt engineer for ${platform} AI. 
+Translate the Korean text to English and enhance it with appropriate details for ${type} generation.
+Focus on visual details, composition, lighting, and quality.
+Keep the core meaning but add relevant technical parameters and style keywords.
+Respond with the enhanced English translation only, no explanations.`;
+
   const url = 'https://api.openai.com/v1/chat/completions';
   const body = {
     model: 'gpt-3.5-turbo',
     messages: [
-      { role: 'system', content: 'You are a professional English translator.' },
-      { role: 'user', content: `Translate the following Korean text to natural English:\n${text}` }
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: `Translate and enhance this prompt for ${platform}:\n${text}` }
     ],
-    temperature: 0.2
+    temperature: 0.3
   };
+  
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -135,11 +178,11 @@ async function openaiTranslate(text, apikey) {
     });
     if (!res.ok) throw new Error('OpenAI API 요청 실패');
     const data = await res.json();
-    if (data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-      return data.choices[0].message.content.trim();
-    } else {
-      throw new Error('번역 결과 없음');
+    if (data?.choices?.[0]?.message?.content) {
+      const translated = data.choices[0].message.content.trim();
+      return formatPrompt(translated, platform, type);
     }
+    throw new Error('번역 결과 없음');
   } catch (e) {
     throw new Error('번역 실패: ' + e.message);
   }
@@ -147,12 +190,24 @@ async function openaiTranslate(text, apikey) {
 
 // Gemini(Google) 번역 함수
 async function geminiTranslate(text, apikey) {
+  const platform = platformSelect.value;
+  const type = typeSelect.value;
+  
+  const prompt = `As a professional prompt engineer for ${platform} AI, translate the following Korean text to English and enhance it for ${type} generation.
+Focus on visual details, composition, lighting, and quality.
+Keep the core meaning but add relevant technical parameters and style keywords.
+Respond with the enhanced English translation only, no explanations.
+
+Korean text to translate and enhance:
+${text}`;
+
   const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apikey;
   const body = {
     contents: [
-      { parts: [ { text: `Translate the following Korean text to natural English:\n${text}` } ] }
+      { parts: [ { text: prompt } ] }
     ]
   };
+  
   try {
     const res = await fetch(url, {
       method: 'POST',
@@ -161,11 +216,11 @@ async function geminiTranslate(text, apikey) {
     });
     if (!res.ok) throw new Error('Gemini API 요청 실패');
     const data = await res.json();
-    if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) {
-      return data.candidates[0].content.parts[0].text.trim();
-    } else {
-      throw new Error('번역 결과 없음');
+    if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+      const translated = data.candidates[0].content.parts[0].text.trim();
+      return formatPrompt(translated, platform, type);
     }
+    throw new Error('번역 결과 없음');
   } catch (e) {
     throw new Error('번역 실패: ' + e.message);
   }
@@ -222,4 +277,4 @@ platformSelect.addEventListener('change', updatePlatformTitle);
 document.addEventListener('DOMContentLoaded', function() {
   updatePlatformOptions();
   updatePlatformTitle();
-}); 
+});
